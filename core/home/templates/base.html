@@ -1,0 +1,320 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="St. Joseph Province official website" />
+    <meta name="author" content="St. Joseph Province" />
+
+    <title>St. Joseph Province | {% block title %}Home{% endblock %}</title>
+
+    <!-- Add favicon link here -->
+    <link rel="icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon" />
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+    <!--=============== REMIXICONS ===============-->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/3b161c540c.js" crossorigin="anonymous"></script>
+
+    <!-- Include your slider CSS -->
+    <link rel="stylesheet" href="{% static 'css/slider.css' %}">
+    <link rel="stylesheet" href="{% static 'css/about.css' %}">
+    <link rel="stylesheet" href="{% static 'css/holy-ones.css' %}">
+    <link rel="stylesheet" href="{% static 'css/ministry.css' %}">
+    <link rel="stylesheet" href="{% static 'css/members.css' %}">
+    <!-- <link rel="stylesheet" href="{% static 'css/obituary.css' %}"> -->
+    <!-- <link rel="stylesheet" href="{% static 'css/news.css' %}"> -->
+    <link rel="stylesheet" href="{% static 'css/textfixed.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}" />
+     <link rel="stylesheet" href="{% static 'css/contact.css' %}" />
+     <link rel="stylesheet" href="{% static 'css/faq.css'%}" />
+    <link rel="stylesheet" href="{% static 'css/footer.css'%}" />
+
+    <!-- Extra CSS -->
+
+    {% block extra_css %} {% endblock %}
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <header>
+        <div class="container">
+          <input type="checkbox" name="check" id="check" />
+          <div id="logo" class="logo-container">
+            <img class="logo-img" src="{% static 'img/sjp_logo_for_web.png' %}" alt="St. Joseph Province, Bangladesh" />
+          </div>
+
+          <div class="nav-btn">
+            <div class="nav-links">
+          <ul>
+            <li class="nav-link" style="--i: .6s">
+              <a href="{% url 'home:home' %}">Home</a>  
+            </li>
+            <li class="nav-link" style="--i: .85s">
+              <a href="{% url 'home:home' %}">About Us<i class="fas fa-caret-down"></i></a>
+              <div class="dropdown">
+                <ul>
+                  <li class="dropdown-link">
+                    <a href="#">Our Province</a>
+                  </li>
+                  <li class="dropdown-link">
+                    <a href="#">Our Holy Ones</a>
+                  </li>
+                  <li class="dropdown-link">
+                    <a href="#">Province Administration<i class="fas fa-caret-down"></i></a>
+                    <div class="dropdown second">
+                      <ul>
+                        <li class="dropdown-link">
+                          <a href="#">Link</a>
+                        </li>
+                        <li class="dropdown-link">
+                          <a href="#">Link 2</a>
+                        </li>
+                        <li class="dropdown-link">
+                          <a href="#">Link 3</a>
+                        </li>
+                        <li class="dropdown-link">
+                          <a href="#">More<i class="fas fa-caret-down"></i></a>
+                          <div class="dropdown second">
+                            <ul>
+                              <li class="dropdown-link">
+                                <a href="#">Link 1</a>
+                              </li>
+                              <li class="dropdown-link">
+                                <a href="#">Link 2</a>
+                              </li>
+                              <li class="dropdown-link">
+                                <a href="#">Link 3</a>
+                              </li>
+                              <div class="arrow"></div>
+                            </ul>
+                          </div>
+                        </li>
+                        <div class="arrow"></div>
+                      </ul>
+                    </div>
+                  </li>
+                  <li class="dropdown-link">
+                    <a href="#">General Administration</a>
+                  </li>
+                  <div class="arrow"></div>
+                </ul>
+              </div>
+            </li>
+            <li class="nav-link" style="--i: 1.35s">
+              <a href="{% url 'ministry:ministry_list' %}">Ministries</a>
+            </li>
+            <!-- <li class="nav-link" style="--i: .85s">
+              <a href="{% url 'home:home' %}">Ministries<i class="fas fa-caret-down"></i></a>
+              <div class="dropdown">
+                <ul>
+                  <li class="dropdown-link">
+                    <a href="#">Gen. Education</a>
+                  </li>
+                  <li class="dropdown-link">
+                    <a href="#">Rehab Center</a>
+                  </li>
+                  <li class="dropdown-link">
+                    <a href="#">Technical School<i class="fas fa-caret-down"></i></a>
+                    <div class="dropdown second">
+                      <ul>
+                        <li class="dropdown-link">
+                          <a href="#">Link</a>
+                        </li>
+                        <li class="dropdown-link">
+                          <a href="#">Link 2</a>
+                        </li>
+                        <li class="dropdown-link">
+                          <a href="#">Link 3</a>
+                        </li>
+                        <li class="dropdown-link">
+                          <a href="#">More<i class="fas fa-caret-down"></i></a>
+                          <div class="dropdown second">
+                            <ul>
+                              <li class="dropdown-link">
+                                <a href="#">Link 1</a>
+                              </li>
+                              <li class="dropdown-link">
+                                <a href="#">Link 2</a>
+                              </li>
+                              <li class="dropdown-link">
+                                <a href="#">Link 3</a>
+                              </li>
+                              <div class="arrow"></div>
+                            </ul>
+                          </div>
+                        </li>
+                        <div class="arrow"></div>
+                      </ul>
+                    </div>
+                  </li>
+                  <li class="dropdown-link">
+                    <a href="#">Ashram</a>
+                  </li>
+                  <li class="dropdown-link">
+                    <a href="#">Literacy School</a>
+                  </li>
+                  <li class="dropdown-link">
+                    <a href="#">Counselling</a>
+                  </li>
+                  <li class="dropdown-link">
+                    <a href="#">Publications</a>
+                  </li>
+                  <div class="arrow"></div>
+                </ul>
+              </div>
+            </li> -->
+            <li class="nav-link" style="--i: 1.1s">
+              <a href="{% url 'home:home' %}">Resources<i class="fas fa-caret-down"></i></a>
+              <div class="dropdown">
+                <ul>
+                  <li class="dropdown-link">
+                    <a href="#">Newsletter</a>
+                  </li>
+                  <li class="dropdown-link">
+                    <a href="{% url 'home:chapter_list' %}">Constitutions</a>
+                  </li>
+                  <li class="dropdown-link">
+                    <a href="{% url 'home:album_list' %}">Photo Gallery<i class="fas fa-caret-down"></i></a>
+                    <div class="dropdown second">
+                      <ul>
+                        <li class="dropdown-link">
+                          <a href="#">Link 1</a>
+                        </li>
+                        <li class="dropdown-link">
+                          <a href="#">Link 2</a>
+                        </li>
+                        <li class="dropdown-link">
+                          <a href="#">Link 3</a>
+                        </li>
+                        <li class="dropdown-link">
+                          <a href="#">More<i class="fas fa-caret-down"></i></a>
+                          <div class="dropdown second">
+                            <ul>
+                              <li class="dropdown-link">
+                                <a href="#">Link 1</a>
+                              </li>
+                              <li class="dropdown-link">
+                                <a href="#">Link 2</a>
+                              </li>
+                              <li class="dropdown-link">
+                                <a href="#">Link 3</a>
+                              </li>
+                              <div class="arrow"></div>
+                            </ul>
+                          </div>
+                        </li>
+                        <div class="arrow"></div>
+                      </ul>
+                    </div>
+                  </li>
+                  <div class="arrow"></div>
+                </ul>
+              </div>
+            </li>
+            <li class="nav-link" style="--i: 1.35s">
+              <a href="{% url 'home:members' %}">Members</a>
+            </li>
+            <li class="nav-link" style="--i: 1.35s">
+              <a href="{% url 'home:obituary' %}">Obituary</a>
+            </li>
+            
+            <li class="nav-link" style="--i: 1.35s">
+              <a href="{% url 'home:contact' %}">Contact Us</a>
+            </li>
+            <li class="nav-link" style="--i: 1.35s">
+              <a href="{% url 'home:contact' %}">Join Us</a>
+            </li>
+            <li class="nav-link" style="--i: 1.35s">
+              <a href="{% url 'home:contact' %}">Donate</a>
+            </li>
+          </ul>
+        </div>
+        <div class="log-sign" style="--i: 1.8s">
+          <a href="#" class="btn transparent"><i class="material-icons">person</i></a>
+          </div>
+          
+    </div>
+
+    <div class="hamburger-menu-container">
+          <label for="check" class="hamburger-menu">
+            <div></div>
+            
+          </label>
+        </div>
+        </div>
+      </header>
+      <main>
+        {% block content %} {% endblock %}
+      </main>
+
+      <!--=============== Footer ===============-->
+      <footer class="footer">
+        <div class="footer-container">
+          <div class="row">
+            <div class="footer-col">
+              <h4>St. Joseph Province</h4>
+              <ul>
+                <li><a href="{% url 'home:detailed_about' %}">about us</a></li>
+                <li><a href="{% url 'ministry:ministry_list' %}">our ministries</a></li>
+                <li><a href="#">our mission</a></li>
+                <li><a href="{% url 'home:detailed_about' %}">our history</a></li>
+              </ul>
+            </div>
+            <div class="footer-col">
+              <h4>Contact Us</h4>
+              <ul>
+                <li><a href="#">FAQ</a></li>
+                <li><a href="#">Write us</a></li>
+                <li><a href="#">Prayer Request</a></li>
+                <li><a href="#">Donate</a></li>
+              </ul>
+            </div>
+            <div class="footer-col">
+              <h4>Activities</h4>
+              <ul>
+                <li><a href="#">News</a></li>
+                <li><a href="#">New Mission</a></li>
+                <li><a href="{% url 'ministry:ministry_list' %}">Where we serve</a></li>
+              </ul>
+            </div>
+            <div class="footer-col">
+              <h4>follow us</h4>
+              <div class="social-links">
+                <a href="https://web.facebook.com/csc.sjp.bd"><i class="fab fa-facebook-f"></i></a>
+                <!-- <a href="#"><i class="fab fa-twitter"></i></a> -->
+                <!-- <a href="#"><i class="fab fa-instagram"></i></a> -->
+                <!-- <a href="#"><i class="fab fa-linkedin-in"></i></a> -->
+                <a href="https://api.whatsapp.com/send?phone=+8801786124860"><i class="fab fa-whatsapp"></i></a>
+                <a href="mailto:sjpbd@gmail.com"><i class="fas fa-envelope"></i></a>
+                <a href="tel:+8801786124860"><i class="fas fa-phone"></i></a>             
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="copyright" style="color: rgb(233, 232, 232); text-align: center; margin-top: 30px;">
+          <hr style="border: 0; height: 1px; background: linear-gradient(to right, rgba(0, 0, 0, 0), rgb(233, 232, 232), rgba(0, 0, 0, 0)); margin-bottom: 10px;">
+          <p>&copy; <span id="currentYear"></span> St. Joseph Province. All rights reserved.</p>
+          <hr style="border: 0; height: 1px; background: linear-gradient(to right, rgba(0, 0, 0, 0), rgb(233, 232, 232), rgba(0, 0, 0, 0)); margin-top: 10px;">
+        </div>
+        
+        
+      </footer>
+      
+      
+      <script>
+        // Script to automatically update the year
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+      </script>
+      
+
+    <!-- Include your slider JavaScript -->
+    <script src="{% static 'js/slider.js' %}"></script>
+    <script src="{% static 'js/jsfile.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+  </body>
+</html>

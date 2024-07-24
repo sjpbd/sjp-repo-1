@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Distance Calculation</title>
+</head>
+<body>
+    <h1>Distance Calculation</h1>
+    <form method="get" action="{% url 'mymap:calculate_distance' %}">
+        <label for="origin">Origin:</label>
+        <input type="text" id="origin" name="origin" required>
+        <label for="destination">Destination:</label>
+        <input type="text" id="destination" name="destination" required>
+        <button type="submit">Calculate Distance</button>
+    </form>
+    {% if distance_data %}
+    <h2>Distance Results:</h2>
+    <p>Distance: {{ distance_data.rows.0.elements.0.distance.text }}</p>
+    <p>Duration: {{ distance_data.rows.0.elements.0.duration.text }}</p>
+    {% endif %}
+</body>
+</html>

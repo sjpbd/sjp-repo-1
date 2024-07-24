@@ -1,0 +1,186 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Obituary{% endblock %}
+
+{% block content %}
+<style>
+    .obituary-card-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        max-width: 1400px;
+        width: 100%;
+        padding: 20px;
+        margin: 0 auto;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    #header {
+        background-color: #4d566b;
+        padding: 20px;
+        text-align: center;
+        color: white;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    #header h1 {
+        font-size: 2.5rem;
+        font-family: "Georgia", serif;
+        margin-bottom: 10px;
+        color: #f0f0f0;
+        letter-spacing: 1px;
+        text-shadow: 2px 2px 4px #84837c;
+    }
+
+    .card {
+        text-align: center;
+        padding: 20px;
+        border-radius: 10px;
+        background-color: #f0f0f0;
+        border: 2px solid #0c0c0c;
+        transition: transform 0.2s ease-in-out;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .card img {
+        width: 90%;
+        height: auto;
+        object-fit: cover;
+        object-position: top;
+        border-radius: 50%;
+        border: 4px solid #fff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s ease-in-out;
+    }
+
+    .card-button {
+        font-family: "Georgia", serif;
+        font-size: 12px;
+        line-height: 1.5;
+        padding: 10px 20px;
+        border: none;
+        background-color: #333;
+        color: white;
+        border-radius: 5px;
+        text-align: center;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease-in-out;
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    @media (max-width: 1200px) {
+        .obituary-card-container {
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        }
+    }
+
+    @media (max-width: 992px) {
+        #header h1 {
+            font-size: 2rem;
+        }
+    }
+
+    @media (max-width: 768px) {
+        #header h1 {
+            font-size: 1.8rem;
+        }
+
+        .obituary-card-container {
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 10px;
+            padding: 10px;
+        }
+
+        .card img {
+            width: 80%;
+            height: auto;
+        }
+
+        .card-button {
+            font-size: 10px;
+            padding: 8px 16px;
+        }
+    }
+
+    @media (max-width: 576px) {
+        #header h1 {
+            font-size: 1.5rem;
+        }
+
+        .obituary-card-container {
+            grid-template-columns: 1fr;
+            gap: 5px;
+            padding: 5px;
+        }
+
+        .card img {
+            width: 90%;
+            height: auto;
+        }
+
+        .card-button {
+            font-size: 12px;
+            padding: 8px 12px;
+        }
+
+    }
+    @media (max-width: 450px) {
+        #header h1 {
+            font-size: 1.5rem;
+        }
+
+        .obituary-card-container {
+            grid-template-columns: 1fr;
+            gap: 5px;
+            padding: 5px;
+        }
+
+        .card img {
+            width: 80%;
+            height: auto;
+        }
+
+        .card-button {
+            font-size: 12px;
+            padding: 8px 12px;
+        }
+        .card {
+    text-align: center;
+    padding: 20px;
+    margin: 20px auto; /* Center align the card */
+    border-radius: 10px;
+    background-color: #f0f0f0;
+    border: 2px solid #0c0c0c;
+    transition: transform 0.2s ease-in-out;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 80%; /* Add your specified width */
+    height: auto; /* Ensure height is auto */
+}
+
+    }
+</style>
+
+<div id="header">
+    <h1>In Loving Memory of<br />Our Deceased Brothers</h1>
+</div>
+<section>
+    <div class="obituary-container">
+        <div class="obituary-card-container">
+            {% for obituary in obituaries %}
+            <div class="card">
+                <img src="{{ obituary.image.url }}" alt="{{ obituary.name }}" />
+                <button class="card-button">
+                    {{ obituary.name }}<br />
+                    Born: {{ obituary.birth_date|date:"d-m-Y" }}<br />
+                    Died: {{ obituary.death_date|date:"d-m-Y" }}
+                </button>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block extra_css %}
+<style>
+    .professional-photo-detail-section {
+    padding: 60px 0;
+    background-color: #f8f9fa;
+}
+
+.professional-photo-detail-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.professional-photo-detail-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.professional-photo-detail-description {
+    font-size: 1.2rem;
+    color: #555;
+    margin-bottom: 40px;
+}
+
+.professional-photo-detail-img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 40px;
+}
+
+.professional-photo-detail-back-link {
+    margin-top: 40px;
+}
+
+.professional-photo-detail-btn {
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 10px 20px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.professional-photo-detail-btn:hover {
+    background-color: #0056b3;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="professional-photo-detail-section">
+    <div class="professional-photo-detail-container">
+        <h1 class="professional-photo-detail-title">{{ photo.title }}</h1>
+        <p class="professional-photo-detail-description">{{ photo.description }}</p>
+        <img src="{{ photo.image.url }}" class="professional-photo-detail-img" alt="{{ photo.title }}">
+        <p class="professional-photo-detail-back-link">
+            <a href="{{ photo.album.get_absolute_url }}" class="professional-photo-detail-btn">Back to Album</a>
+        </p>
+    </div>
+</section>
+{% endblock %}

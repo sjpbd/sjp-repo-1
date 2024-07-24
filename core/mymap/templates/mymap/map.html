@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Map</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key={{ google_maps_api_key }}&callback=initMap" async defer></script>
+    <script>
+        function initMap() {
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 8,
+                center: {lat: 23.6850, lng: 90.3563}
+            });
+
+            var markers = [
+                {% for institution in institutions %}
+                {
+                    position: {lat: {{ institution.latitude }}, lng: {{ institution.longitude }}},
+                    title: "{{ institution.name }}"
+                },
+                {% endfor %}
+            ];
+
+            markers.forEach(function(marker) {
+                new google.maps.Marker({
+                    position: marker.position,
+                    map: map,
+                    title: marker.title,
+                    icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
+                });
+            });
+        }
+    </script>
+</head>
+<body>
+    <h1>Our Working Locations in Bangladesh</h1>
+    <div id="map" style="height: 500px; width: 100%;"></div>
+</body>
+</html>

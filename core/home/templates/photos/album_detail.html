@@ -1,0 +1,318 @@
+{% extends 'base.html' %}
+
+{% block extra_css %}
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f4f4f4;
+    }
+
+    .professional-album-section {
+        padding: 60px 0;
+        background-color: #ffffff;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .professional-album-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+        text-align: center;
+    }
+
+    .professional-album-title {
+        font-size: 3rem;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 20px;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    }
+
+    .professional-album-description {
+        font-size: 1.3rem;
+        color: #555;
+        margin-bottom: 40px;
+        line-height: 1.6;
+    }
+
+    .professional-photo-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 30px;
+    }
+
+    .professional-photo-item {
+        position: relative;
+        overflow: hidden;
+        border-radius: 15px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .professional-photo-item:hover {
+        transform: translateY(-5px);
+    }
+
+    .professional-photo-card {
+        position: relative;
+    }
+
+    .professional-photo-img {
+        width: 100%;
+        height: auto;
+        display: block;
+        border-radius: 15px;
+    }
+
+    .professional-photo-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+        border-radius: 15px;
+    }
+
+    .professional-photo-card:hover .professional-photo-overlay {
+        opacity: 1;
+    }
+
+    .professional-photo-title {
+        font-size: 1.7rem;
+        font-weight: bold;
+        margin-bottom: 15px;
+    }
+
+    .professional-photo-link {
+        font-size: 1.1rem;
+        font-weight: bold;
+        padding: 12px 25px;
+        color: #fff;
+        background-color: #007bff;
+        border: none;
+        border-radius: 25px;
+        text-decoration: none;
+        transition: all 0.3s;
+    }
+
+    .professional-photo-link:hover {
+        background-color: #0056b3;
+        transform: scale(1.05);
+    }
+
+    .back-button {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #333;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        transition: background-color 0.3s;
+    }
+
+    .back-button:hover {
+        background-color: #555;
+    }
+    .professional-album-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .back-button {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #333;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+        font-size: 1rem;
+    }
+
+    .back-button:hover {
+        background-color: #555;
+    }
+
+    .professional-album-title {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #333;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        margin: 0;
+    }
+    /* Modal styles */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.9);
+    }
+
+    .modal-content {
+        position: relative;
+        margin: auto;
+        padding: 0;
+        width: 90%;
+        max-width: 1200px;
+        height: 90%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .modal-image {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+    }
+
+    .close {
+        color: #fff;
+        position: absolute;
+        top: 10px;
+        right: 25px;
+        font-size: 35px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .nav-button {
+        color: #fff;
+        position: absolute;
+        top: 50%;
+        font-size: 30px;
+        font-weight: bold;
+        cursor: pointer;
+        background: rgba(0, 0, 0, 0.5);
+        padding: 10px;
+        border-radius: 5px;
+        transition: background 0.3s;
+    }
+
+    .nav-button:hover {
+        background: rgba(0, 0, 0, 0.8);
+    }
+
+    .prev {
+        left: 20px;
+    }
+
+    .next {
+        right: 20px;
+    }
+
+    .modal-caption {
+        position: absolute;
+        bottom: 20px;
+        left: 0;
+        right: 0;
+        text-align: center;
+        color: #fff;
+        font-size: 18px;
+        padding: 10px;
+        background: rgba(0, 0, 0, 0.5);
+    }
+
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="professional-album-section">
+    <div class="professional-album-container">
+        <div class="professional-album-header">
+            <a href="javascript:history.back()" class="back-button">← Back</a>
+            <h1 class="professional-album-title">{{ album.title }}</h1>
+            <div style="width: 100px;"></div>
+        </div>
+        <p class="professional-album-description">{{ album.description }}</p>
+        <div class="professional-photo-grid">
+            {% for photo in photos %}
+            <div class="professional-photo-item">
+                <div class="professional-photo-card">
+                    <img src="{{ photo.thumb.url }}" class="professional-photo-img" alt="{{ photo.title }}">
+                    <div class="professional-photo-overlay">
+                        <h5 class="professional-photo-title">{{ photo.title }}</h5>
+                        <a href="#" class="professional-photo-link" onclick="openModal({{ forloop.counter0 }}); return false;">View Photo</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Modal -->
+<div id="photoModal" class="modal">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <div class="modal-content">
+        <img id="modalImage" class="modal-image" src="" alt="">
+        <div class="modal-caption" id="modalCaption"></div>
+    </div>
+    <a class="nav-button prev" onclick="changePhoto(-1)">&#10094;</a>
+    <a class="nav-button next" onclick="changePhoto(1)">&#10095;</a>
+</div>
+
+<script>
+    let currentPhotoIndex = 0;
+    const photos = [
+        {% for photo in photos %}
+        {
+            url: "{{ photo.image.url }}",
+            title: "{{ photo.title }}"
+        },
+        {% endfor %}
+    ];
+
+    function openModal(photoIndex) {
+        currentPhotoIndex = photoIndex;
+        updateModalContent();
+        document.getElementById('photoModal').style.display = 'block';
+    }
+
+    function closeModal() {
+        document.getElementById('photoModal').style.display = 'none';
+    }
+
+    function changePhoto(direction) {
+        currentPhotoIndex += direction;
+        if (currentPhotoIndex < 0) {
+            currentPhotoIndex = photos.length - 1;
+        } else if (currentPhotoIndex >= photos.length) {
+            currentPhotoIndex = 0;
+        }
+        updateModalContent();
+    }
+
+    function updateModalContent() {
+        const modal = document.getElementById('photoModal');
+        const modalImg = document.getElementById('modalImage');
+        const captionText = document.getElementById('modalCaption');
+        
+        modalImg.src = photos[currentPhotoIndex].url;
+        captionText.innerHTML = photos[currentPhotoIndex].title;
+    }
+
+    // Close modal when clicking outside the image
+    window.onclick = function(event) {
+        const modal = document.getElementById('photoModal');
+        if (event.target == modal) {
+            closeModal();
+        }
+    }
+</script>
+{% endblock %}

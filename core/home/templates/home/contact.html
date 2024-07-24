@@ -1,0 +1,222 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Obituary{% endblock %}
+
+{% block content %}
+<style>
+        .contact-page-2024 {
+            --primary-color: #3a86ff;
+            --secondary-color: #8338ec;
+            --text-color: #2b2d42;
+            --background-color: #f8f9fa;
+            --card-color: #ffffff;
+            --input-bg: #e9ecef;
+            --input-focus: #d8e2dc;
+
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .contact-container-2024 {
+            max-width: 1000px;
+            margin: 50px auto;
+            padding: 40px;
+            background-color: var(--card-color);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .contact-header-2024 {
+            width: 100%;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .contact-header-2024 h1 {
+            color: var(--primary-color);
+            font-size: 2.8em;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .contact-header-2024 p {
+            color: var(--secondary-color);
+            font-size: 1.2em;
+            font-weight: 300;
+        }
+
+        .contact-form-2024 {
+            flex: 1;
+            min-width: 300px;
+            margin-right: 40px;
+        }
+
+        .contact-info-2024 {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .form-group-2024 {
+            margin-bottom: 25px;
+        }
+
+        .form-group-2024 label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        .form-group-2024 input,
+        .form-group-2024 textarea {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            background-color: var(--input-bg);
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .form-group-2024 input:focus,
+        .form-group-2024 textarea:focus {
+            outline: none;
+            background-color: var(--input-focus);
+            box-shadow: 0 0 0 3px rgba(58, 134, 255, 0.2);
+        }
+
+        .form-group-2024 textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .submit-btn-2024 {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .submit-btn-2024:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-info-item-2024 {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .contact-info-item-2024 i {
+            font-size: 24px;
+            color: var(--primary-color);
+            margin-right: 15px;
+        }
+
+        .contact-info-item-2024 p {
+            margin: 0;
+            font-size: 16px;
+        }
+
+        .social-links-2024 {
+            display: flex;
+            justify-content: flex-start;
+            margin-top: 30px;
+        }
+
+        .social-links-2024 a {
+            color: var(--text-color);
+            font-size: 24px;
+            margin-right: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .social-links-2024 a:hover {
+            color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        @media (max-width: 768px) {
+            .contact-container-2024 {
+                flex-direction: column;
+                padding: 30px;
+            }
+
+            .contact-form-2024,
+            .contact-info-2024 {
+                width: 100%;
+                margin-right: 0;
+                margin-bottom: 40px;
+            }
+        }
+    </style>
+<body class="contact-page-2024">
+    <div class="contact-container-2024">
+        <div class="contact-header-2024">
+            <h1>Get in Touch</h1>
+            <p>We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
+        </div>
+        <form class="contact-form-2024" action="#" method="POST">
+            <div class="form-group-2024">
+                <label for="name-2024">Name</label>
+                <input type="text" id="name-2024" name="name" required>
+            </div>
+            <div class="form-group-2024">
+                <label for="email-2024">Email</label>
+                <input type="email" id="email-2024" name="email" required>
+            </div>
+            <div class="form-group-2024">
+                <label for="subject-2024">Subject</label>
+                <input type="text" id="subject-2024" name="subject" required>
+            </div>
+            <div class="form-group-2024">
+                <label for="message-2024">Message</label>
+                <textarea id="message-2024" name="message" required></textarea>
+            </div>
+            <button class="submit-btn-2024" type="submit">Send Message</button>
+        </form>
+        <div class="contact-info-2024">
+            <div class="contact-info-item-2024">
+                <i class="fas fa-map-marker-alt"></i>
+                <p>St. Joseph Province <br>97, Asad Avenue, Mohammadpur, Dhaka-1207, Bangladesh</p>
+            </div>
+            <div class="contact-info-item-2024">
+                <i class="fas fa-phone"></i>
+                <p>+880 1786-124860</p>
+            </div>
+            <div class="contact-info-item-2024">
+                <i class="fas fa-envelope"></i>
+                <p>sjpbd@gmail.com</p>
+            </div>
+            <div class="contact-info-item-2024">
+                <i class="fas fa-clock"></i>
+                <p>Mon - Fri: 9:00 AM - 5:00 PM</p>
+            </div>
+            <div class="social-links-2024">
+                <a href="#" title="Facebook"><i class="fab fa-facebook"></i></a>
+                <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </div>
+</body>
+
+{% endblock %}

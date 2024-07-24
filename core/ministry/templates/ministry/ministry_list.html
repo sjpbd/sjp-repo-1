@@ -1,0 +1,139 @@
+<!-- ministry/ministry_list.html -->
+{% extends 'base.html' %}
+{% load render_table from django_tables2 %}
+{% block title %}Ministries{% endblock %}
+
+<!-- base.html -->
+{% block extra_css %}
+<style>
+    
+    .sjp-ministry-section {
+        background-color: #f9f9f9;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .ministry-title {
+        color: #333;
+        font-family: 'Arial', sans-serif;
+        font-size: 2.5em;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+    .ministry-tabs {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 30px;
+    }
+    .ministry-tab {
+        color: #555;
+        background-color: #fff;
+        padding: 10px 20px;
+        margin: 0 5px;
+        border: 1px solid #ddd;
+        border-radius: 25px;
+        text-decoration: none;
+        font-family: 'Arial', sans-serif;
+        transition: all 0.3s ease;
+    }
+    .ministry-tab:hover, .ministry-tab.active {
+        background-color: #007bff;
+        color: #fff;
+        border-color: #007bff;
+    }
+    .table-responsive {
+        overflow-x: auto;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 0;
+        padding: 0;
+        table-layout: auto;
+    }
+    table th, table td {
+        padding: 12px 15px;
+        border: 1px solid #010101;
+        text-align: left;
+        font-family: 'Arial', sans-serif;
+    }
+    table th {
+        background-color: #f2f2f2;
+        font-weight: bold;
+    }
+    table tbody tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+    table tbody tr:hover {
+        background-color: #f1f1f1;
+    }
+    .ministry-tab-text {
+  color: #3498db;
+}
+a{
+    color: #010101;
+}
+
+</style>
+{% endblock %}
+
+
+{% block content %}
+<div class="sjp-ministry-section">
+    <h2 class="ministry-title">Ministries of St. Joseph Province</h2>
+    <div class="ministry-tabs">
+        <a href="?ministry_type=" class="ministry-tab {% if not request.GET.ministry_type %}active{% endif %}">All</a>
+        {% for ministry_type in ministry_types %}
+        <a href="?ministry_type={{ ministry_type.slug }}" class="ministry-tab {% if request.GET.ministry_type == ministry_type.slug %}active{% endif %}">{{ ministry_type.name }}</a>
+        {% endfor %}
+    </div>
+    <div class="table-responsive">
+        <table class="{{ ministry_table.attrs.class }}">
+            <thead>
+                <tr>
+                    {% for column in ministry_table.columns %}
+                        <th>{{ column.header }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in ministry_table.rows %}
+                    <tr>
+                        {% for cell in row %}
+                            {% if forloop.last %}
+                                <td>{{ cell|safe }}</td>
+                            {% else %}
+                                <td>{{ cell }}</td>
+                            {% endif %}
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.tiny.cloud/1/YOUR_TINYMCE_API_KEY/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+    tinymce.init({
+        selector: 'td:last-child',
+        inline: true,
+        menubar: false,
+        toolbar: false,
+        plugins: [
+            'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
+            'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
+            'insertdatetime', 'media', 'table', 'code', 'help', 'wordcount'
+        ],
+        toolbar: 'undo redo | formatselect | ' +
+        'bold italic backcolor | alignleft aligncenter ' +
+        'alignright alignjustify | bullist numlist outdent indent | ' +
+        'removeformat | help',
+        content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+    });
+</script>
+{% endblock %}

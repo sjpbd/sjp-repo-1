@@ -1,0 +1,168 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Constitutions{% endblock %}
+
+{% block content %}
+
+
+    <style>
+        :root {
+            --primary-color: #4a90e2;
+            --secondary-color: #34495e;
+            --background-color: #f8f9fa;
+            --text-color: #333;
+            --accent-color: #e74c3c;
+            --transition: all 0.3s ease;
+        }
+
+        
+
+        .main-content {
+            padding: 40px;
+            margin-top: 80px;
+            border-radius: 12px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .chapter-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .chapter-list li {
+            margin-bottom: 0;
+        }
+
+        .chapter-list a {
+            text-decoration: none;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #fff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+            height: 100%;
+        }
+
+        .chapter-list a:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            color: var(--primary-color);
+        }
+
+        .chapter-list a:active {
+            transform: translateY(0);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .chapter-icon {
+            font-size: 1.5rem;
+            margin-right: 15px;
+            color: var(--primary-color);
+        }
+
+        .dark-mode-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+
+        .dark-mode-toggle:hover {
+            background-color: var(--secondary-color);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 10px;
+            }
+
+            .main-content {
+                padding: 30px 20px;
+                margin-top: -40px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .chapter-list {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        body.dark-mode {
+            --background-color: #1a1a1a;
+            --text-color: #f4f4f4;
+        }
+
+        body.dark-mode .main-content,
+        body.dark-mode .chapter-list a {
+            background-color: #2a2a2a;
+            color: var(--text-color);
+        }
+
+        body.dark-mode .chapter-list a:hover {
+            background-color: #3a3a3a;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1>Constitutions</h1>
+    </div>
+    <div class="container">
+        <main class="main-content">
+            <ul class="chapter-list">
+                {% for chapter in chapters %}
+                <li>
+                    <a href="{% url 'home:chapter_detail' chapter.pk %}">
+                        <i class="fas fa-book chapter-icon"></i>
+                        {{ chapter.title }}
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </main>
+    </div>
+    <button class="dark-mode-toggle" id="darkModeToggle">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <script>
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const body = document.body;
+
+        darkModeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            const isDarkMode = body.classList.contains('dark-mode');
+            localStorage.setItem('darkMode', isDarkMode);
+            darkModeToggle.innerHTML = isDarkMode ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+        });
+
+        // Check for saved dark mode preference
+        if (localStorage.getItem('darkMode') === 'true') {
+            body.classList.add('dark-mode');
+            darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+        }
+    </script>
+</body>
+
+{% endblock %}

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ministry Map</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        #map {
+            height: 600px;
+            width: 100%;
+        }
+        #controls {
+            margin-bottom: 20px;
+        }
+        #search-input {
+            width: 300px;
+            padding: 5px;
+            margin-right: 10px;
+        }
+        #filter-select {
+            padding: 5px;
+            margin-right: 10px;
+        }
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBUUzA64JyQRkVhd7fiwi5C8j_dJT2y9HA&libraries=places"></script>
+    <script src="https://unpkg.com/@google/markerclustererplus@5.1.0/dist/markerclustererplus.min.js"></script>
+    <script>
+        let map;
+        let markers = [];
+        let infowindow;
+        let markerCluster;
+        let ministries = {{ ministries|safe }};
+        
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 5,
+                center: {lat: 23.6850, lng: 90.3563} // Center map on Bangladesh
+            });
+
+            infowindow = new google.maps.InfoWindow();
+
+            // Initialize markers and clustering
+            updateMarkers();
+
+            // Add event listener for the search functionality
+            document.getElementById('search-button').addEventListener('click', function() {
+                const query = document.getElementById('search-input').value.toLowerCase();
+                searchMinistries(query);
+            });
+
+            // Add event listener for the filter functionality
+            document.getElementById('filter-select').addEventListener('change', function() {
+                const type = this.value;
+                filterMinistries(type);
+            });
+        }
+
+        function updateMarkers() {
+            if (markerCluster) {
+                markerCluster.clearMarkers();
+            }
+
+            markers.forEach(marker => marker.setMap(null));
+            markers = [];
+
+            ministries.forEach(function(ministry) {
+                const marker = new google.maps.Marker({
+                    position: {lat: ministry.lat, lng: ministry.lng},
+                    map: map,
+                    title: ministry.name
+                });
+
+                marker.addListener('click', function() {
+                    infowindow.setContent(`
+                        <h3>${ministry.name}</h3>
+                        <p>${ministry.description}</p>
+                        <p>Contact: <a href="mailto:${ministry.contact}">${ministry.contact}</a></p>
+                        <p>Website: <a href="${ministry.website}" target="_blank">${ministry.website}</a></p>
+                        <button onclick="getDirections(${ministry.lat}, ${ministry.lng})">Get Directions</button>
+                    `);
+                    infowindow.open(map, marker);
+                });
+
+                markers.push(marker);
+            });
+
+            markerCluster = new MarkerClusterer(map, markers, {
+                imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
+            });
+        }
+
+        function searchMinistries(query) {
+            const filteredMinistries = ministries.filter(ministry => ministry.name.toLowerCase().includes(query));
+            ministries = filteredMinistries;
+            updateMarkers();
+        }
+
+        function filterMinistries(type) {
+            if (type === 'all') {
+                ministries = {{ ministries|safe }};
+            } else {
+                ministries = {{ ministries|safe }}.filter(ministry => ministry.type === type);
+            }
+            updateMarkers();
+        }
+
+        function getDirections(lat, lng) {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    const userLocation = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    };
+
+                    const directionsService = new google.maps.DirectionsService();
+                    const directionsRenderer = new google.maps.DirectionsRenderer();
+                    directionsRenderer.setMap(map);
+
+                    const request = {
+                        origin: userLocation,
+                        destination: {lat: lat, lng: lng},
+                        travelMode: 'DRIVING'
+                    };
+
+                    directionsService.route(request, function(result, status) {
+                        if (status === 'OK') {
+                            directionsRenderer.setDirections(result);
+                        } else {
+                            alert('Directions request failed due to ' + status);
+                        }
+                    });
+                }, function() {
+                    alert('Error: The Geolocation service failed.');
+                });
+            } else {
+                alert('Error: Your browser doesn\'t support geolocation.');
+            }
+        }
+
+        window.onload = initMap;
+    </script>
+</head>
+<body>
+    <h1>Ministry Map</h1>
+    <div id="controls">
+        <input type="text" id="search-input" placeholder="Search for ministries...">
+        <button id="search-button">Search</button>
+        <select id="filter-select">
+            <option value="all">All Types</option>
+            <!-- Add your specific types here -->
+            <option value="type1">Type 1</option>
+            <option value="type2">Type 2</option>
+        </select>
+    </div>
+    <div id="map"></div>
+</body>
+</html>

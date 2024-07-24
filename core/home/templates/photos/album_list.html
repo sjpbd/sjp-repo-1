@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<style>
+    .unique-photo-album-section {
+    padding: 60px 0;
+    background-color: #f7f7f7;
+}
+
+.unique-photo-album-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.unique-section-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 30px;
+    text-align: center;
+    color: #333;
+}
+
+.unique-row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+}
+
+.unique-col-md-4 {
+    position: relative;
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    flex: 0 0 33.3333%;
+    max-width: 33.3333%;
+}
+
+.unique-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.unique-card-img-top {
+    width: 100%;
+    height: auto;
+}
+
+.unique-card-body {
+    padding: 20px;
+}
+
+.unique-card-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.unique-card-text {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.unique-btn {
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 10px 20px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.3s;
+}
+
+.unique-btn:hover {
+    background-color: #0056b3;
+}
+
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="unique-photo-album-section">
+    <div class="unique-photo-album-container">
+        <h1 class="unique-section-title" data-aos="fade-down">Photo Albums</h1>
+        {% if albums %}
+            <div class="unique-row">
+                {% for album in albums %}
+                <div class="unique-col-md-4 mb-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:1|stringformat:'d'}}00">
+                    <div class="unique-card album-card">
+                        {% if album.thumb %}
+                            <img src="{{ album.thumb.url }}" class="unique-card-img-top" alt="{{ album.title }}">
+                        {% else %}
+                            <div class="unique-card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 250px;">
+                                <span class="text-muted">No image available</span>
+                            </div>
+                        {% endif %}
+                        <div class="unique-card-body">
+                            <h5 class="unique-card-title">{{ album.title }}</h5>
+                            <p class="unique-card-text">{{ album.description|truncatewords:20 }}</p>
+                            <a href="{{ album.get_absolute_url }}" class="unique-btn btn-view-album">View Album</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="text-center">No albums available at the moment.</p>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+<script>
+    AOS.init({
+        duration: 800,
+        easing: 'ease-in-out',
+        once: true,
+        mirror: false
+    });
+    console.log("AOS initialized");
+</script>
+{% endblock %}
